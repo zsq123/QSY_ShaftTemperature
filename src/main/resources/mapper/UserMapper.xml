@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hirain.qsy.shaft.dao.UserMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hirain.qsy.shaft.model.User">
+		<id column="USER_ID" jdbcType="DECIMAL" property="id" />
+		<result column="USERNAME" jdbcType="VARCHAR"
+			property="username" />
+		<result column="PASSWORD" jdbcType="VARCHAR"
+			property="password" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="ID_NUM" jdbcType="VARCHAR" property="idNum" />
+		<result column="DEPT_NAME" jdbcType="VARCHAR"
+			property="deptName" />
+		<result column="PARENT_ID" jdbcType="BIGINT"
+			property="parentId" />
+		<result column="PARENT_NAME" jdbcType="VARCHAR"
+			property="parentName" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<collection property="roleList"
+			ofType="com.hirain.qsy.shaft.model.Role">
+			<id column="ROLE_ID" property="roleId" />
+			<result column="ROLE_NAME" property="roleName" />
+		</collection>
+	</resultMap>
+
+	<select id="findUserWithRole" resultMap="BaseResultMap"
+		resultType="list">
+		<bind name="usernamelike" value="'%' + username + '%'" />
+		<bind name="namelike" value="'%' + name + '%'" />
+		<bind name="idNumlike" value="'%' + idNum + '%'" />
+		<bind name="roleNamelike" value="'%' + roleName + '%'" />
+		<bind name="parentNamelike" value="'%' + parentName + '%'" />
+		<bind name="deptNamelike" value="'%' + deptName + '%'" />
+		select u.user_id
+		,u.username,u.id_num,u.dept_name,u.name,u.parent_name,u.create_time
+		,r.role_id
+		,r.role_name from
+		t_user u
+		left join
+		t_user_role ur
+		on(ur.user_id =
+		u.user_id)
+		left join
+		t_role r
+		on(ur.role_id=r.role_id)
+		<where>
+			<if test="username != '' ">u.username like #{usernamelike}</if>
+			<if test="name != '' ">and u.name like #{namelike}</if>
+			<if test="idNum != '' ">and u.id_num like #{idNumlike}</if>
+			<if test="roleName != '' ">and r.role_name like #{roleNamelike}</if>
+			<if test="parentName != '' ">and u.parent_name like #{parentNamelike}</if>
+			<if test="deptName != '' ">and u.dept_name like #{deptNamelike}</if>
+
+			<if test="starttime!=null">and u.create_time &gt;=#{starttime}</if>
+			<if test="endtime!=null">and u.create_time &lt;=#{endtime}</if>
+			<if test="id!=null">and u.user_id=#{id}</if>
+		</where>
+		order by u.user_id
+	</select>
+	<select id="findUserWithRoleByParentId"
+		resultMap="BaseResultMap" resultType="list">
+		<bind name="usernamelike" value="'%' + username + '%'" />
+		<bind name="namelike" value="'%' + name + '%'" />
+		<bind name="idNumlike" value="'%' + idNum + '%'" />
+		<bind name="roleNamelike" value="'%' + roleName + '%'" />
+		<bind name="parentNamelike" value="'%' + parentName + '%'" />
+		<bind name="deptNamelike" value="'%' + deptName + '%'" />
+		select
+		u.user_id
+		,u.username,u.id_num,u.dept_name,u.name,u.parent_name,u.create_time
+		,r.role_id
+		,r.role_name from t_user u
+		left join
+		t_user_role ur
+		on(ur.user_id =
+		u.user_id)
+		left join t_role r
+		on(ur.role_id=r.role_id)
+		<where>
+			<if test="username != '' ">u.username like #{usernamelike}</if>
+			<if test="name != '' ">and u.name like #{namelike}</if>
+			<if test="idNum != '' ">and u.id_num like #{idNumlike}</if>
+			<if test="roleName != '' ">and r.role_name like #{roleNamelike}</if>
+			<if test="parentName != '' ">and u.parent_name like #{parentNamelike}</if>
+			<if test="deptName != '' ">and u.dept_name like #{deptNamelike}</if>
+			<if test="id != null ">and u.parent_id =#{id}</if>
+			<if test="starttime!=null">and u.create_time &gt;=#{starttime}</if>
+			<if test="endtime!=null">and u.create_time &lt;=#{endtime}</if>
+			<if
+				test="username == ''and name=='' and idNum=='' and roleName=='' and parentName=='' and starttime==null and endtime==null">or u.user_id =#{id}</if>
+
+		</where>
+		order by u.user_id
+	</select>
+
+
+</mapper>

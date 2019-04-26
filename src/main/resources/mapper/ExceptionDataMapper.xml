@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hirain.qsy.shaft.dao.ExceptionDataMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hirain.qsy.shaft.model.ExceptionData">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="train_id" jdbcType="INTEGER" property="trainId" />
+		<result column="acquisition_time" jdbcType="TIMESTAMP"
+			property="acquisitionTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="result_axle1_1" jdbcType="VARCHAR"
+			property="resultAxle11" />
+		<result column="result_axle1_2" jdbcType="VARCHAR"
+			property="resultAxle12" />
+		<result column="result_axle1_3" jdbcType="VARCHAR"
+			property="resultAxle13" />
+		<result column="result_axle1_4" jdbcType="VARCHAR"
+			property="resultAxle14" />
+		<result column="result_axle1_5" jdbcType="VARCHAR"
+			property="resultAxle15" />
+		<result column="result_axle2_1" jdbcType="VARCHAR"
+			property="resultAxle21" />
+		<result column="result_axle2_2" jdbcType="VARCHAR"
+			property="resultAxle22" />
+		<result column="result_axle2_3" jdbcType="VARCHAR"
+			property="resultAxle23" />
+		<result column="result_axle2_4" jdbcType="VARCHAR"
+			property="resultAxle24" />
+		<result column="result_axle2_5" jdbcType="VARCHAR"
+			property="resultAxle25" />
+		<result column="result_axle3_1" jdbcType="VARCHAR"
+			property="resultAxle31" />
+		<result column="result_axle3_2" jdbcType="VARCHAR"
+			property="resultAxle32" />
+		<result column="result_axle3_3" jdbcType="VARCHAR"
+			property="resultAxle33" />
+		<result column="result_axle3_4" jdbcType="VARCHAR"
+			property="resultAxle34" />
+		<result column="result_axle3_5" jdbcType="VARCHAR"
+			property="resultAxle35" />
+		<result column="result_axle4_1" jdbcType="VARCHAR"
+			property="resultAxle41" />
+		<result column="result_axle4_2" jdbcType="VARCHAR"
+			property="resultAxle42" />
+		<result column="result_axle4_3" jdbcType="VARCHAR"
+			property="resultAxle43" />
+		<result column="result_axle4_4" jdbcType="VARCHAR"
+			property="resultAxle44" />
+		<result column="result_axle4_5" jdbcType="VARCHAR"
+			property="resultAxle45" />
+		<result column="result_axle5_1" jdbcType="VARCHAR"
+			property="resultAxle51" />
+		<result column="result_axle5_2" jdbcType="VARCHAR"
+			property="resultAxle52" />
+		<result column="result_axle5_3" jdbcType="VARCHAR"
+			property="resultAxle53" />
+		<result column="result_axle5_4" jdbcType="VARCHAR"
+			property="resultAxle54" />
+		<result column="result_axle5_5" jdbcType="VARCHAR"
+			property="resultAxle55" />
+		<result column="result_axle6_1" jdbcType="VARCHAR"
+			property="resultAxle61" />
+		<result column="result_axle6_2" jdbcType="VARCHAR"
+			property="resultAxle62" />
+		<result column="result_axle6_3" jdbcType="VARCHAR"
+			property="resultAxle63" />
+		<result column="result_axle6_4" jdbcType="VARCHAR"
+			property="resultAxle64" />
+		<result column="result_axle6_5" jdbcType="VARCHAR"
+			property="resultAxle65" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, train_id, acquisition_time, create_time,
+		result_axle1_1,
+		result_axle1_2, result_axle1_3,
+		result_axle1_4,
+		result_axle1_5, result_axle2_1, result_axle2_2, result_axle2_3,
+		result_axle2_4,
+		result_axle2_5, result_axle3_1, result_axle3_2,
+		result_axle3_3, result_axle3_4,
+		result_axle3_5,
+		result_axle4_1,
+		result_axle4_2, result_axle4_3, result_axle4_4, result_axle4_5,
+		result_axle5_1,
+		result_axle5_2, result_axle5_3, result_axle5_4,
+		result_axle5_5, result_axle6_1,
+		result_axle6_2,
+		result_axle6_3,
+		result_axle6_4, result_axle6_5
+	</sql>
+
+	<select id="findStatisticsResult" resultMap="BaseResultMap"
+		resultType="list">
+		select
+		* from t_exception_data
+		<where>
+			<if test="trainNums !=null ">
+				train_id IN
+				<foreach collection="trainNums" item="id" index="index"
+					open="(" close=")" separator=",">
+					#{id}
+				</foreach>
+			</if>
+			<if test="startTime!=null">and acquisition_time &gt;=#{startTime}</if>
+			<if test="endTime!=null">and acquisition_time &lt;=#{endTime}</if>
+		</where>
+		GROUP BY acquisition_time
+		order by acquisition_time
+	</select>
+</mapper>

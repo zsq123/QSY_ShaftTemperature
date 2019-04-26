@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hirain.qsy.shaft.dao.TrainInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hirain.qsy.shaft.model.TrainInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="train_num" jdbcType="VARCHAR" property="trainNum" />
+    <result column="train_type" jdbcType="VARCHAR" property="trainType" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, train_num, train_type, CREATE_TIME
+  </sql>
+ 
+ 	<select id="findAllGroupTrainType" resultMap="BaseResultMap"
+		resultType="list">
+		SELECT train_type, group_concat(train_num) trainNums from t_train_info GROUP BY train_type
+	</select>
+</mapper>
