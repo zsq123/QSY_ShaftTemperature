@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hirain.qsy.shaft.common.annotation.Log;
 import com.hirain.qsy.shaft.common.controller.BaseController;
 import com.hirain.qsy.shaft.common.model.ResponseBo;
 import com.hirain.qsy.shaft.model.Menu;
@@ -105,7 +106,7 @@ public class MenuController extends BaseController {
 	// }
 	// }
 
-	// @Log("删除菜单")
+	@Log("删除菜单")
 	@PostMapping("/delete")
 	@RequiresAuthentication
 	public ResponseBo deleteMenus(String ids) {
@@ -119,23 +120,23 @@ public class MenuController extends BaseController {
 		}
 	}
 
-	// @Log("修改菜单/按钮")
-	// @PostMapping("/update")
-	// @RequiresAuthentication
-	// public ResponseBo updateMenu(Menu menu) {
-	//
-	// String name;
-	// if (Menu.TYPE_MENU.equals(menu.getType()))
-	// name = "菜单";
-	// else
-	// name = "按钮";
-	// try {
-	// this.menuService.updateMenu(menu);
-	// return ResponseBo.ok("修改" + name + "成功！");
-	// } catch (Exception e) {
-	// logger.error("修改{}失败", name, e);
-	// return ResponseBo.error("修改" + name + "失败，请联系网站管理员！");
-	// }
-	// }
+	@Log("修改菜单/按钮")
+	@PostMapping("/update")
+	@RequiresAuthentication
+	public ResponseBo updateMenu(Menu menu) {
+
+		String name;
+		if (Menu.TYPE_MENU.equals(menu.getType()))
+			name = "菜单";
+		else
+			name = "按钮";
+		try {
+			this.menuService.updateMenu(menu);
+			return ResponseBo.ok("修改" + name + "成功！");
+		} catch (Exception e) {
+			logger.error("修改{}失败", name, e);
+			return ResponseBo.error("修改" + name + "失败，请联系网站管理员！");
+		}
+	}
 
 }

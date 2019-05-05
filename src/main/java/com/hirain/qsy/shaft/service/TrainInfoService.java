@@ -1,6 +1,7 @@
 package com.hirain.qsy.shaft.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,6 +20,20 @@ public interface TrainInfoService extends IService<TrainInfo> {
 	 * @return
 	 */
 	TrainInfo findById(Integer tranId);
+
+	/**
+	 * save train information containing type and id
+	 * 
+	 * @param list
+	 * @return
+	 */
+	int saveTrainInfor(List<TrainInfo> list);
+
+	List<TrainInfo> mapDataToTrainObject(Map<String, String> map);
+
+	List<String> getAllTrainType();
+
+	List<String> queryTrainNumByType(String trainType);
 
 	@Cacheable(key = "#p0.toString() + (#p1 != null ? #p1.toString() : '')")
 	List<TrainInfo> findList(QueryRequest request, DataRequest dataRequest);

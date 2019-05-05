@@ -1,7 +1,11 @@
 package com.hirain.qsy.shaft.common.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.hirain.qsy.shaft.common.config.GlobVariableConfig;
@@ -11,20 +15,22 @@ public class DataToPythonUtils extends GlobVariableConfig {
 
 	/**
 	 * 返回json数据
+	 * 
 	 * @param excelData 传入excel数据
 	 * @return
 	 */
-	public String objectToJson(List<List<Object>> excelData) {
+	public String objectToPythonJson(List<List<Object>> excelData) {
 
-		return JSON.toJSONString(analysisData(excelData));
+		return JSON.toJSONString(excelDataToPythonData(excelData));
 	}
 
 	/**
-	 *   获取所有温度的数据
+	 * 获取所有温度的数据
+	 * 
 	 * @param excelData
 	 * @return
 	 */
-	private List<PythonData> analysisData(List<List<Object>> excelData) {
+	private PythonData excelDataToPythonData(List<List<Object>> excelData) {
 		/*
 		 * String title[]= {"1轴测试点1温度-℃" ,"1轴测试点2温度-℃" ,"1轴测试点3温度-℃" ,"1轴测试点4温度-℃"
 		 * ,"1轴测试点5温度-℃" , "2轴测试点1温度-℃" ,"2轴测试点2温度-℃" ,"2轴测试点3温度-℃" ,"2轴测试点4温度-℃"
@@ -34,42 +40,62 @@ public class DataToPythonUtils extends GlobVariableConfig {
 		 * ,"5轴测试点5温度-℃" , "6轴测试点1温度-℃" ,"6轴测试点2温度-℃" ,"6轴测试点3温度-℃" ,"6轴测试点4温度-℃"
 		 * ,"6轴测试点5温度-℃"};
 		 */
-
+		SimpleDateFormat sdfDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		PythonData pData = null;
 		List<String> tempratureOnPoint;// 测点温度
-		List<String> gpsSpeed;// gps速度
-		List<String> firAmbientTemperature;// 环境一温度
-		List<String> secAmbientTemperature;// 环境二温度
-		List<PythonData> listPythonData = new ArrayList<>();// 存储PythonData对象的数据
+		List<String> trainId = new ArrayList<>();// 机车号
+		List<Date> acquisitionTime = new ArrayList<>();// 采集时间
+		List<String> gpsSpeed = new ArrayList<>();// gps速度
 
-		// 获取gps,环境温度1和环境温度2的index.
-		int gpsTitleIndex = excelData.get(0).indexOf("GPS速度");
-		int firTempIndex = excelData.get(0).indexOf("环温1-℃");
-		int secTempIndex = excelData.get(0).indexOf("环温2-℃");
+		List<List<String>> ambientTemperaturesList = new ArrayList<>();
+		// List<PythonData> listPythonData = new ArrayList<>();// 存储PythonData对象的数据
+		if (excelData.size() > 0) {
 
-		if (excelData != null) {
-			for (int index = 0; index < title.length; index++) {
-				PythonData pData = new PythonData();
-				tempratureOnPoint = new ArrayList<>();
-				gpsSpeed = new ArrayList<>();
-				firAmbientTemperature = new ArrayList<>();
-				secAmbientTemperature = new ArrayList<>();
-				int titleIndex = excelData.get(0).indexOf(title[index]);
-				for (int rIndex = 1; rIndex < excelData.size(); rIndex++) {
-					tempratureOnPoint.add(excelData.get(rIndex).get(titleIndex).toString());
-					gpsSpeed.add(excelData.get(rIndex).get(gpsTitleIndex).toString());
-					firAmbientTemperature.add(excelData.get(rIndex).get(firTempIndex).toString());
-					secAmbientTemperature.add(excelData.get(rIndex).get(secTempIndex).toString());
+			try {// 获取gps,环境温度1和环境温度2的index.
+
+				int gpsTitleIndex = excelData.get(0).indexOf("GPS速度");
+				int firTempIndex = excelData.get(0).indexOf("环温1-℃");
+				int secTempIndex = excelData.get(0).indexOf("环温2-℃");
+				int trainIdIndex = excelData.get(0).indexOf("机车车号");
+				int acquisitionTimeIndex = excelData.get(0).indexOf("采集时间");
+				pData = new PythonData();
+				for (int eIndex = 1; eIndex < excelData.size(); eIndex++) {
+					List<String> ambientTemperature = new ArrayList<>();// 环境温度
+					List<Object> lists = excelData.get(eIndex);
+					trainId.add(lists.get(trainIdIndex).toString());
+					acquisitionTime.add(sdfDateFormat.parse(lists.get(acquisitionTimeIndex).toString()));
+					gpsSpeed.add(lists.get(gpsTitleIndex).toString());
+					ambientTemperature.add(lists.get(firTempIndex).toString());
+					ambientTemperature.add(lists.get(secTempIndex).toString());
+					ambientTemperaturesList.add(ambientTemperature);
+				}
+				pData.setTrainid(trainId);
+				pData.setAcquisitiontime(acquisitionTime);
+				pData.setGpsSpeed(gpsSpeed);
+				pData.setAmbientTemperature(ambientTemperaturesList);
+
+				if (excelData != null) {
+					for (int index = 0; index < title.length; index++) {
+						tempratureOnPoint = new ArrayList<>();
+						int titleIndex = excelData.get(0).indexOf(title[index]);
+						for (int rIndex = 1; rIndex < excelData.size(); rIndex++) {
+							tempratureOnPoint.add(excelData.get(rIndex).get(titleIndex).toString());
+						}
+						String proName = "tempratureOnPoint" + (index / 6 + 1) + (index - (index / 6) * 6 + 1);
+						BeanUtils.setProperty(pData, proName, tempratureOnPoint);
+
+						// pData.setTempratureOnPoint(tempratureOnPoint);
+						// listPythonData.add(pData);
+					}
 				}
 
-				pData.setTempratureOnPoint(tempratureOnPoint);
-				pData.setGpsSpeed(gpsSpeed);
-				pData.setFirAmbientTemperature(firAmbientTemperature);
-				pData.setSecAmbientTemperature(secAmbientTemperature);
-				listPythonData.add(pData);
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
+
 		}
 
-		return listPythonData;
+		return pData;
 	}
 
 }

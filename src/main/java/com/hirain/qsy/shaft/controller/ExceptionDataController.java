@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import com.hirain.qsy.shaft.common.model.ResponseBo;
-import com.hirain.qsy.shaft.model.ExceptionData;
 import com.hirain.qsy.shaft.service.ExceptionDataService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,25 +40,32 @@ public class ExceptionDataController {
 		}
 	}
 
-	@PostMapping("/savenolist")
-	public ResponseBo saveNoList(@RequestParam Integer trainId, @RequestParam String exceptionDataString) {
+//	@PostMapping("/savenolist")
+//	public ResponseBo saveNoList(@RequestParam Integer trainId, @RequestParam String exceptionDataString) {
+//
+//		try {
+//			exceptionDataService.savenolist(trainId, exceptionDataString);
+//			log.info("成功");
+//			log.info(String.valueOf(trainId));
+//			return ResponseBo.ok("异常数据插入成功！");
+//		} catch (Exception e) {
+//			log.error("异常数据插入错误", e);
+//			return ResponseBo.error("异常数据插入错误，请联系网站管理员！");
+//		}
+//	}
 
-		try {
-			exceptionDataService.savenolist(trainId, exceptionDataString);
-			log.info("成功");
-			log.info(String.valueOf(trainId));
-			return ResponseBo.ok("异常数据插入成功！");
-		} catch (Exception e) {
-			log.error("异常数据插入错误", e);
-			return ResponseBo.error("异常数据插入错误，请联系网站管理员！");
-		}
+	@PostMapping("/getdata")
+	public ResponseBo getExceptionStateData(@RequestParam Integer trainId, @RequestParam String startDate, @RequestParam String endDate) {
+
+		return ResponseBo.ok(exceptionDataService.analyseExceptionData(trainId, startDate, endDate)) ;
 	}
+	
+	@PostMapping("/getAxledata")
+	public ResponseBo getAxleExceptionData(@RequestParam Integer trainId, @RequestParam String startDate, @RequestParam String endDate,@RequestParam String axleName) {
 
-	@PostMapping("/get")
-	public List<ExceptionData> getExceptionData(@RequestParam Integer trainId, @RequestParam Date startDate, @RequestParam Date endDate) {
-
-		return exceptionDataService.findByTrainInfoAndTime(trainId, startDate, endDate);
+		return ResponseBo.ok(exceptionDataService.findAxleExceptionData(trainId, startDate, endDate,axleName)) ;
 	}
+	
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {

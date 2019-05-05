@@ -99,11 +99,4 @@ public class Role implements Serializable {
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
-
-	@Override
-	public String toString() {
-		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", remark=" + remark + ", createTime=" + createTime + ", modifyTime="
-				+ modifyTime + "]";
-	}
-
 }

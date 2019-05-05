@@ -1,6 +1,9 @@
 package com.hirain.qsy.shaft.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,64 @@ public class TrainInfoServiceImpl extends BaseService<TrainInfo> implements Trai
 	@Override
 	public TrainInfo findById(Integer tranId) {
 		return trainInfoMapper.selectByPrimaryKey(tranId);
+
+	}
+
+	@Override
+	public int saveTrainInfor(List<TrainInfo> list) {
+		// TODO Auto-generated method stub
+		try {
+			return trainInfoMapper.insertList(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return -1;
+		}
+
+	}
+
+	/**
+	 * get object of trainInfo and exists
+	 * 
+	 * @see com.hirain.qsy.shaft.service.TrainInfoService#mapToTrainObject(java.util.Map)
+	 */
+	@Override
+	public List<TrainInfo> mapDataToTrainObject(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		List<TrainInfo> dataInfos = new ArrayList<TrainInfo>();
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+
+			TrainInfo trainInfo = new TrainInfo();
+			trainInfo.setTrainNum(Long.valueOf(entry.getValue()));
+			trainInfo.setTrainType(entry.getKey());
+			trainInfo.setCreateTime(new Date());
+
+			// 判断数据库是否存在该车号与车型
+			Example example = new Example(TrainInfo.class);
+			Criteria criteria = example.createCriteria();
+			criteria.andEqualTo("trainNum", entry.getValue());
+			criteria.andEqualTo("trainType", entry.getKey());
+
+			if (selectByExample(example).size() == 0)
+				dataInfos.add(trainInfo);
+		}
+		return dataInfos;
+	}
+
+	@Override
+	public List<String> getAllTrainType() {
+		// TODO Auto-generated method stub
+		return trainInfoMapper.queryAllTrainType();
+	}
+
+	/**
+	 * 根据车辆类型查询车号
+	 * 
+	 * @see com.hirain.qsy.shaft.service.TrainInfoService#queryTrainNumByType(java.lang.String)
+	 */
+	@Override
+	public List<String> queryTrainNumByType(String trainType) {
+
+		return trainInfoMapper.queryTrainNumByType(trainType);
 	}
 
 	@Override
@@ -62,4 +123,5 @@ public class TrainInfoServiceImpl extends BaseService<TrainInfo> implements Trai
 		example.setOrderByClause("train_num");
 		return this.selectByExample(example);
 	}
+
 }

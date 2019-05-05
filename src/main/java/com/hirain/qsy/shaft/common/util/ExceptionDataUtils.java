@@ -54,7 +54,7 @@ public class ExceptionDataUtils {
 	 * @return
 	 */
 	public static String[][] pythonJsonToMatrix(String str, int row, int col) {
-		System.out.println(str);
+//		System.out.println(str);
 		return arrToMatrix(pythonJsonToList(str), row, col);
 	}
 
@@ -71,16 +71,16 @@ public class ExceptionDataUtils {
 
 	}
 
-	public static List<ExceptionData> pythonToExceptionDataListNoList(Integer trainId, int col, String exceptionDataString) {
-
-		String[][] excepDataMatrix = ExceptionDataUtils.pythonJsonToMatrix(exceptionDataString, 1, col);
-		ArrayList<ExceptionData> list = new ArrayList<ExceptionData>();
-		for (int i = 0; i < 1; i++) {
-			ExceptionData exceptionData = new ExceptionData(trainId, new Date(), new Date(), excepDataMatrix[i]);
-			list.add(exceptionData);
-		}
-		return list;
-	}
+//	public static List<ExceptionData> pythonToExceptionDataListNoList(Integer trainId, int col, String exceptionDataString) {
+//
+//		String[][] excepDataMatrix = ExceptionDataUtils.pythonJsonToMatrix(exceptionDataString, 2, col);
+//		ArrayList<ExceptionData> list = new ArrayList<ExceptionData>();
+//		for (int i = 0; i < 2; i++) {
+//			ExceptionData exceptionData = new ExceptionData(trainId, new Date(), new Date(), excepDataMatrix[i]);
+//			list.add(exceptionData);
+//		}
+//		return list;
+//	}
 
 	// public static void main(String[] args) {
 	//

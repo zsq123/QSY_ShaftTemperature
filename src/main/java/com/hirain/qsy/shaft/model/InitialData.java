@@ -9,24 +9,24 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
-
 @Data
 @Table(name = "t_initial_data")
-public class InitialData implements Serializable {
+public class InitialData implements Serializable{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6633637556517634710L;
-
+	private static final long serialVersionUID = 1L;
 	private Long id;
-
+	@Column(name="train_id")
 	private Integer trainId;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
+	@Column(name="acquisition_time")
 	private Date acquisitionTime;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
+	@Column(name="create_time")
 	private Date createTime;
 
 	@Column(name = "ambient_temperature_1")
@@ -34,11 +34,14 @@ public class InitialData implements Serializable {
 
 	@Column(name = "ambient_temperature_2")
 	private Float ambientTemperature2;
-
+	
+	@Column(name = "generator_temperature")
 	private Float generatorTemperature;
 
+	@Column(name = "fan1_temperature")
 	private Float fan1Temperature;
 
+	@Column(name = "fan2_temperature")
 	private Float fan2Temperature;
 
 	@Column(name = "axle1_1")
@@ -55,6 +58,9 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle1_5")
 	private Float axle15;
+	
+	@Column(name = "axle1_6")
+	private Float axle16;
 
 	@Column(name = "axle2_1")
 	private Float axle21;
@@ -70,6 +76,9 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle2_5")
 	private Float axle25;
+	
+	@Column(name = "axle2_6")
+	private Float axle26;
 
 	@Column(name = "axle3_1")
 	private Float axle31;
@@ -85,6 +94,9 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle3_5")
 	private Float axle35;
+	
+	@Column(name = "axle3_6")
+	private Float axle36;
 
 	@Column(name = "axle4_1")
 	private Float axle41;
@@ -100,6 +112,9 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle4_5")
 	private Float axle45;
+	
+	@Column(name = "axle4_6")
+	private Float axle46;
 
 	@Column(name = "axle5_1")
 	private Float axle51;
@@ -115,6 +130,9 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle5_5")
 	private Float axle55;
+	
+	@Column(name = "axle5_6")
+	private Float axle56;
 
 	@Column(name = "axle6_1")
 	private Float axle61;
@@ -130,26 +148,42 @@ public class InitialData implements Serializable {
 
 	@Column(name = "axle6_5")
 	private Float axle65;
+	
+	@Column(name = "axle6_6")
+	private Float axle66;
 
+	@Column(name = "max_temp")
 	private Float maxTemp;
 
+	@Column(name = "max_temp_point")
 	private Float maxTempPoint;
 
+	@Column(name = "alarm_point")
 	private Short alarmPoint;
 
+	@Column(name = "alarm_sign")
 	private String alarmSign;
 
+	@Column(name = "alarm_code")
 	private String alarmCode;
 
+	@Column(name = "alarm_time")
 	private Date alarmTime;
 
+	@Column(name = "alarm_point_temp")
 	private Float alarmPointTemp;
 
+	@Column(name = "gps_longitude")
 	private Float gpsLongitude;
-
+	
+	@Column(name = "gps_latitude")
 	private Float gpsLatitude;
 
+	@Column(name = "gps_speed")
 	private Integer gpsSpeed;
+	
+	@Column(name = "original_primary_key")
+	private String originalprimarykey;
 
 	public Long getId() {
 		return id;

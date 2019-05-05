@@ -43,10 +43,4 @@ public class UserRole implements Serializable {
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-
-	@Override
-	public String toString() {
-		return "UserRole [userId=" + userId + ", roleId=" + roleId + "]";
-	}
-
 }

@@ -26,9 +26,4 @@ public class RoleWithMenu extends Role {
 		this.menuIds = menuIds;
 	}
 
-	@Override
-	public String toString() {
-		return "RoleWithMenu [menuId=" + menuId + ", menuIds=" + menuIds + "]";
-	}
-
 }
