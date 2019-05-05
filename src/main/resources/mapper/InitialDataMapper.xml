@@ -1,90 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hirain.qsy.shaft.dao.InitialDataMapper">
-	<resultMap id="BaseResultMap"
-		type="com.hirain.qsy.shaft.model.InitialData">
-		<id column="ID" jdbcType="BIGINT" property="id" />
-		<result column="train_id" jdbcType="INTEGER" property="trainId" />
-		<result column="acquisition_time" jdbcType="TIMESTAMP"
-			property="acquisitionTime" />
-		<result column="create_time" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="ambient_temperature_1" jdbcType="REAL"
-			property="ambientTemperature1" />
-		<result column="ambient_temperature_2" jdbcType="REAL"
-			property="ambientTemperature2" />
-		<result column="generator_temperature" jdbcType="REAL"
-			property="generatorTemperature" />
-		<result column="fan1_temperature" jdbcType="REAL"
-			property="fan1Temperature" />
-		<result column="fan2_temperature" jdbcType="REAL"
-			property="fan2Temperature" />
-		<result column="axle1_1" jdbcType="REAL" property="axle11" />
-		<result column="axle1_2" jdbcType="REAL" property="axle12" />
-		<result column="axle1_3" jdbcType="REAL" property="axle13" />
-		<result column="axle1_4" jdbcType="REAL" property="axle14" />
-		<result column="axle1_5" jdbcType="REAL" property="axle15" />
-		<result column="axle2_1" jdbcType="REAL" property="axle21" />
-		<result column="axle2_2" jdbcType="REAL" property="axle22" />
-		<result column="axle2_3" jdbcType="REAL" property="axle23" />
-		<result column="axle2_4" jdbcType="REAL" property="axle24" />
-		<result column="axle2_5" jdbcType="REAL" property="axle25" />
-		<result column="axle3_1" jdbcType="REAL" property="axle31" />
-		<result column="axle3_2" jdbcType="REAL" property="axle32" />
-		<result column="axle3_3" jdbcType="REAL" property="axle33" />
-		<result column="axle3_4" jdbcType="REAL" property="axle34" />
-		<result column="axle3_5" jdbcType="REAL" property="axle35" />
-		<result column="axle4_1" jdbcType="REAL" property="axle41" />
-		<result column="axle4_2" jdbcType="REAL" property="axle42" />
-		<result column="axle4_3" jdbcType="REAL" property="axle43" />
-		<result column="axle4_4" jdbcType="REAL" property="axle44" />
-		<result column="axle4_5" jdbcType="REAL" property="axle45" />
-		<result column="axle5_1" jdbcType="REAL" property="axle51" />
-		<result column="axle5_2" jdbcType="REAL" property="axle52" />
-		<result column="axle5_3" jdbcType="REAL" property="axle53" />
-		<result column="axle5_4" jdbcType="REAL" property="axle54" />
-		<result column="axle5_5" jdbcType="REAL" property="axle55" />
-		<result column="axle6_1" jdbcType="REAL" property="axle61" />
-		<result column="axle6_2" jdbcType="REAL" property="axle62" />
-		<result column="axle6_3" jdbcType="REAL" property="axle63" />
-		<result column="axle6_4" jdbcType="REAL" property="axle64" />
-		<result column="axle6_5" jdbcType="REAL" property="axle65" />
-		<result column="max_temp" jdbcType="REAL" property="maxTemp" />
-		<result column="max_temp_point" jdbcType="REAL"
-			property="maxTempPoint" />
-		<result column="alarm_point" jdbcType="SMALLINT"
-			property="alarmPoint" />
-		<result column="alarm_sign" jdbcType="VARCHAR"
-			property="alarmSign" />
-		<result column="alarm_code" jdbcType="VARCHAR"
-			property="alarmCode" />
-		<result column="alarm_time" jdbcType="TIMESTAMP"
-			property="alarmTime" />
-		<result column="alarm_point_temp" jdbcType="REAL"
-			property="alarmPointTemp" />
-		<result column="gps_longitude" jdbcType="REAL"
-			property="gpsLongitude" />
-		<result column="gps_latitude" jdbcType="REAL"
-			property="gpsLatitude" />
-		<result column="gps_speed" jdbcType="INTEGER"
-			property="gpsSpeed" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		ID, train_id, acquisition_time, create_time, ambient_temperature_1,
-		ambient_temperature_2,
-		generator_temperature, fan1_temperature, fan2_temperature, axle1_1, axle1_2, axle1_3,
-		axle1_4, axle1_5, axle2_1, axle2_2, axle2_3, axle2_4, axle2_5,
-		axle3_1, axle3_2,
-		axle3_3, axle3_4, axle3_5, axle4_1, axle4_2, axle4_3, axle4_4, axle4_5,
-		axle5_1,
-		axle5_2, axle5_3, axle5_4, axle5_5, axle6_1, axle6_2, axle6_3, axle6_4,
-		axle6_5,
-		max_temp, max_temp_point, alarm_point, alarm_sign, alarm_code, alarm_time,
-		alarm_point_temp,
-		gps_longitude, gps_latitude, gps_speed
-	</sql>
-
-	<select id="findByParams" resultMap="BaseResultMap"
+  <resultMap id="BaseResultMap" type="com.hirain.qsy.shaft.model.InitialData">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="train_id" jdbcType="INTEGER" property="trainId" />
+    <result column="acquisition_time" jdbcType="TIMESTAMP" property="acquisitionTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ambient_temperature_1" jdbcType="REAL" property="ambientTemperature1" />
+    <result column="ambient_temperature_2" jdbcType="REAL" property="ambientTemperature2" />
+    <result column="generator_temperature" jdbcType="REAL" property="generatorTemperature" />
+    <result column="fan1_temperature" jdbcType="REAL" property="fan1Temperature" />
+    <result column="fan2_temperature" jdbcType="REAL" property="fan2Temperature" />
+    <result column="axle1_1" jdbcType="REAL" property="axle11" />
+    <result column="axle1_2" jdbcType="REAL" property="axle12" />
+    <result column="axle1_3" jdbcType="REAL" property="axle13" />
+    <result column="axle1_4" jdbcType="REAL" property="axle14" />
+    <result column="axle1_5" jdbcType="REAL" property="axle15" />
+    <result column="axle1_6" jdbcType="REAL" property="axle16" />
+    <result column="axle2_1" jdbcType="REAL" property="axle21" />
+    <result column="axle2_2" jdbcType="REAL" property="axle22" />
+    <result column="axle2_3" jdbcType="REAL" property="axle23" />
+    <result column="axle2_4" jdbcType="REAL" property="axle24" />
+    <result column="axle2_5" jdbcType="REAL" property="axle25" />
+    <result column="axle2_6" jdbcType="REAL" property="axle26" />
+    <result column="axle3_1" jdbcType="REAL" property="axle31" />
+    <result column="axle3_2" jdbcType="REAL" property="axle32" />
+    <result column="axle3_3" jdbcType="REAL" property="axle33" />
+    <result column="axle3_4" jdbcType="REAL" property="axle34" />
+    <result column="axle3_5" jdbcType="REAL" property="axle35" />
+    <result column="axle3_6" jdbcType="REAL" property="axle36" />
+    <result column="axle4_1" jdbcType="REAL" property="axle41" />
+    <result column="axle4_2" jdbcType="REAL" property="axle42" />
+    <result column="axle4_3" jdbcType="REAL" property="axle43" />
+    <result column="axle4_4" jdbcType="REAL" property="axle44" />
+    <result column="axle4_5" jdbcType="REAL" property="axle45" />
+    <result column="axle4_6" jdbcType="REAL" property="axle46" />
+    <result column="axle5_1" jdbcType="REAL" property="axle51" />
+    <result column="axle5_2" jdbcType="REAL" property="axle52" />
+    <result column="axle5_3" jdbcType="REAL" property="axle53" />
+    <result column="axle5_4" jdbcType="REAL" property="axle54" />
+    <result column="axle5_5" jdbcType="REAL" property="axle55" />
+    <result column="axle5_6" jdbcType="REAL" property="axle56" />
+    <result column="axle6_1" jdbcType="REAL" property="axle61" />
+    <result column="axle6_2" jdbcType="REAL" property="axle62" />
+    <result column="axle6_3" jdbcType="REAL" property="axle63" />
+    <result column="axle6_4" jdbcType="REAL" property="axle64" />
+    <result column="axle6_5" jdbcType="REAL" property="axle65" />
+    <result column="axle6_6" jdbcType="REAL" property="axle66" />
+    <result column="max_temp" jdbcType="REAL" property="maxTemp" />
+    <result column="max_temp_point" jdbcType="REAL" property="maxTempPoint" />
+    <result column="alarm_point" jdbcType="SMALLINT" property="alarmPoint" />
+    <result column="alarm_sign" jdbcType="VARCHAR" property="alarmSign" />
+    <result column="alarm_code" jdbcType="VARCHAR" property="alarmCode" />
+    <result column="alarm_time" jdbcType="TIMESTAMP" property="alarmTime" />
+    <result column="alarm_point_temp" jdbcType="REAL" property="alarmPointTemp" />
+    <result column="gps_longitude" jdbcType="REAL" property="gpsLongitude" />
+    <result column="gps_latitude" jdbcType="REAL" property="gpsLatitude" />
+    <result column="gps_speed" jdbcType="INTEGER" property="gpsSpeed" />
+    <result column="original_primary_key" jdbcType="VARCHAR" property="originalPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, train_id, acquisition_time, create_time, ambient_temperature_1, ambient_temperature_2, 
+    generator_temperature, fan1_temperature, fan2_temperature, axle1_1, axle1_2, axle1_3, 
+    axle1_4, axle1_5, axle1_6, axle2_1, axle2_2, axle2_3, axle2_4, axle2_5, axle2_6, 
+    axle3_1, axle3_2, axle3_3, axle3_4, axle3_5, axle3_6, axle4_1, axle4_2, axle4_3, 
+    axle4_4, axle4_5, axle4_6, axle5_1, axle5_2, axle5_3, axle5_4, axle5_5, axle5_6, 
+    axle6_1, axle6_2, axle6_3, axle6_4, axle6_5, axle6_6, max_temp, max_temp_point, alarm_point, 
+    alarm_sign, alarm_code, alarm_time, alarm_point_temp, gps_longitude, gps_latitude, 
+    gps_speed, original_primary_key
+  </sql>
+ 	<select id="findByParams" resultMap="BaseResultMap"
 		resultType="list">
 		select
 		acquisition_time from t_initial_data

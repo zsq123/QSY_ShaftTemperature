@@ -1,6 +1,5 @@
 package com.hirain.dome;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,7 @@ public class UserTest {
 	@Autowired
 	UserService userService;
 
-	@Test
+	// @Test
 	public void insertUser() {
 		for (int i = 4; i < 34; i++) {
 

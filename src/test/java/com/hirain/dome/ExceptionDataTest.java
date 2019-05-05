@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +26,7 @@ public class ExceptionDataTest {
 	@Autowired
 	InitialDataService initialDataService;
 
-	@Test
+	// @Test
 	public void test() {
 		List<InitialData> list = initialDataService.selectAll();
 		// SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
